@@ -1,1 +1,2 @@
-b0c23f543337e1f3fa62ce7a34563fea444785d3db9b5050d310c6df6323f62c  release/PrimalHearts2-CN-1.0.zip
+a90bbda67fb39818c0e282f36020300fa470bc344ae4cebceee87ca755e0e337  PrimalHearts2-CN-1.0.7z.001
+92ec34123a24f6ec0d483acb9f2f1c1ba2791c5d1ad68e1c1c207a98b76c28d0  audio-fix-1.0.zip

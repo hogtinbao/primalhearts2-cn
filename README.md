@@ -8,57 +8,75 @@
 
 适用：**Steam 版 Primal Hearts 2**（appid `1368010`，主程序 `primhearts2.exe`，Marmalade / Entis 引擎）。
 
-## 包内容
+## 下载（Releases 页，两个附件分开装）
 
-这个补丁做两件事：
+| 附件 | 作用 | 大小 |
+|---|---|---|
+| `PrimalHearts2-CN-1.0.7z.001` | 简体中文文本补丁（分卷压缩，原名 `.7z.001`） | 见 Releases |
+| `audio-fix-1.0.zip` | 音频修复（耳机没声音） | 16 KB |
 
-1. **简体中文**：官方只提供繁体中文，补丁把剧情脚本（`script.noa`）里的
-   `text_ZHTW` / `name_ZHTW` 文本转换为简体；
-2. **修耳机无声**：这类 32 位老引擎启动时固定绑第一台声卡（板载喇叭），无视 Windows 默认设备。
-   启动垫片会在游戏真正出声后重新声明一次默认设备，让引擎跟随当前默认设备
-   （戴耳机=耳机，拔掉=扬声器）。
+到 [Releases](https://github.com/hogtinbao/primalhearts2-cn/releases) 页下载。
 
-补丁**只有剧情文本和启动垫片**，不含任何图像、语音、字体或 R18 内容包。
+### 关于分卷
+
+- 只看到一个 `.7z.001` 就说明是单卷，直接用 7-Zip / WinRAR 解压即可；
+- 如果出现 `.7z.001`、`.7z.002`…，**必须全部下齐放在同一目录**，然后：
+  - 7-Zip：右键 `.001` →「7-Zip」→「解压到…」；
+  - WinRAR：右键 `.001` →「解压到…」（会自动串接后续卷）。
+
+## 安装顺序（重要）
+
+1. **先装官方中文补丁（繁体）**——本补丁的 `script.noa` 是在官方版本基础上转换的，
+   没装官方补丁会缺字体/界面文件，出现缺字或界面异常；
+2. 买了官方 R18 内容包的，也**先装好**（R18 包内含它自己的一份脚本）；
+3. **最后再装本补丁**。
+
+顺序反了（先装本补丁、后装官方补丁）会被官方包覆盖回去，重跑一次 `安装.bat` 即可。
 
 ## 安装（三步）
 
-1. 下载 [`release/PrimalHearts2-CN-1.0.zip`](release/PrimalHearts2-CN-1.0.zip)，解压到游戏目录（会得到 `PrimalHearts2-简体补丁` 文件夹）；
-2. 进入该文件夹，双击 `安装.bat`；
+1. 解压 `PrimalHearts2-CN-1.0.7z.001` 到游戏目录，得到 `PrimalHearts2-简体补丁` 文件夹；
+2. 进入该文件夹，双击 `安装.bat`
+   （自动备份 `script.noa`、把 `primhearts2.exe` 改名为 `primhearts2.orig.exe` 并放入启动垫片）；
 3. 从 Steam / 快捷方式正常启动游戏。
 
-`安装.bat` 做的事：备份原 `script.noa` → 覆盖为简体版；把 `primhearts2.exe` 改名为
-`primhearts2.orig.exe`（备份）→ 放入启动垫片。
+撤销：双击同目录的 `还原.bat`。
 
-## 回退
+## 音频修复（也可单独使用）
 
-双击同目录的 `还原.bat`，原主程序与原始 `script.noa` 都会还原。
+`audio-fix-1.0.zip` 解压后：
+
+```powershell
+# 方式一：换主程序（推荐，不改 Steam 配置）
+powershell -ExecutionPolicy Bypass -File install.ps1 -GameDir "<游戏目录>"
+
+# 方式二：Steam 启动选项
+"<解压目录>\PhAudioLauncher.exe" %command%
+
+# 诊断：每台输出设备上各进程的实时峰值
+powershell -ExecutionPolicy Bypass -File meter.ps1
+```
+
+原理：这类 32 位老引擎启动时固定绑第一台声卡（板载喇叭），不读 Windows 默认设备；
+垫片在游戏真正出声后把当前默认设备**原样重新声明一次**，触发系统的设备变更通知，
+引擎就会重绑到当前默认设备（戴耳机=耳机，拔掉=扬声器）。不是常驻程序。
+
+## 关于 R18 文本
+
+- 本补丁**不包含**官方 R18 内容包里的那套脚本（`pmht_patch_R18.noa` / `pmht2_patch_R18.noa`，
+  2.3 GB / 3.3 GB，主体是 CG 图像）。装了 R18 包之后，**R18 场景仍是繁体**。
+- 想让 R18 场景也变简体，需要把你**自己那份** R18 包里的脚本转成简体再打回去。做法（在本机完成，
+  不上传任何内容）见总仓库的 [`r18-convert`](https://github.com/hogtinbao/game-locale-audio-toolkit/tree/master/r18-convert)：
+  解包 → `tc2sc.py` 转换 → 重打包，命令三条。
+- 仓库与 Release 都不能承载 2–3 GB 的 R18 包（GitHub 单文件 100 MB 上限，且禁止露骨内容）。
 
 ## 校验
 
-包内 `SHA256SUMS.txt` 有逐文件校验和；仓库根目录 [`SHA256SUMS.txt`](SHA256SUMS.txt) 是整个 zip 的。
-
-## 只想要音频修复
-
-`audio-fix/` 里是同一份启动垫片的可执行文件与源码：
+Releases 里每个附件都可与 [`SHA256SUMS.txt`](SHA256SUMS.txt) 对照：
 
 ```powershell
-# 方式一：换主程序（推荐，无需改 Steam 配置）
-powershell -ExecutionPolicy Bypass -File audio-fix/install.ps1 -GameDir "<游戏目录>"
-
-# 方式二：Steam 启动选项
-"<仓库目录>\audio-fix\PhAudioLauncher.exe" %command%
-
-# 诊断：看每台输出设备上各进程的实时峰值
-powershell -ExecutionPolicy Bypass -File audio-fix/meter.ps1
+Get-FileHash .\PrimalHearts2-CN-1.0.7z.001 -Algorithm SHA256
 ```
-
-它不是常驻程序：只在游戏启动那几秒运行，游戏退出即退出。
-
-## 已知限制
-
-- 仅适用于对应 appid 的 Steam 版；其它版本/语言版的 `script.noa` 结构可能不同。
-- Steam「验证游戏文件完整性」或游戏更新会还原主程序与脚本，重跑 `安装.bat` 即可。
-- 需要 .NET Framework 4.x（Windows 10/11 自带）。
 
 ## 权利
 
