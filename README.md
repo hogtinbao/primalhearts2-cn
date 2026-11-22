@@ -63,11 +63,13 @@ powershell -ExecutionPolicy Bypass -File meter.ps1
 
 ## 关于 R18 内容包
 
-- 官方 R18 内容包（`pmht_patch_R18.noa` 2.3 GB / `pmht2_patch_R18.noa` 3.3 GB）**不在本补丁内**，
-  也不会由 GitHub 承载：单文件上限 100 MB，且 GitHub 禁止露骨成人内容。
-- **官方原包的中文是繁体**（官方从未出过简体）。装好官方 R18 包后，R18 场景仍是繁体；
-  要让它们也变简体，需用 [`r18-convert`](https://github.com/hogtinbao/game-locale-audio-toolkit/tree/master/r18-convert)
-  在你自己的机器上把该包里的脚本转一遍（三条命令，图像原样保留，产物只留在本地）。
+- 官方只有繁体中文，**从未发布简体版**；本补丁里的简体文本（含 R18 包内脚本的处理方式）
+  全部是**作者本人的简体化成果**。
+- 官方 R18 内容包（`pmht_patch_R18.noa` 2.3 GB / `pmht2_patch_R18.noa` 3.3 GB）**不在本补丁内**：
+  单文件远超 GitHub 100 MB 上限，且 GitHub 禁止露骨成人内容。
+- 装好官方 R18 包后，R18 场景仍是繁体；要让它也变简体，用
+  [`r18-convert`](https://github.com/hogtinbao/game-locale-audio-toolkit/tree/master/r18-convert)
+  在自己机器上把该包里的脚本转一遍（三条命令，图像原样保留，产物只留在本地）。
 
 ## 校验
 
