@@ -61,14 +61,14 @@ powershell -ExecutionPolicy Bypass -File meter.ps1
 垫片在游戏真正出声后把当前默认设备**原样重新声明一次**，触发系统的设备变更通知，
 引擎就会重绑到当前默认设备（戴耳机=耳机，拔掉=扬声器）。不是常驻程序。
 
-## 关于 R18 文本
+## 关于 R18 内容包
 
-- 本补丁**不包含**官方 R18 内容包里的那套脚本（`pmht_patch_R18.noa` / `pmht2_patch_R18.noa`，
-  2.3 GB / 3.3 GB，主体是 CG 图像）。装了 R18 包之后，**R18 场景仍是繁体**。
-- 想让 R18 场景也变简体，需要把你**自己那份** R18 包里的脚本转成简体再打回去。做法（在本机完成，
-  不上传任何内容）见总仓库的 [`r18-convert`](https://github.com/hogtinbao/game-locale-audio-toolkit/tree/master/r18-convert)：
-  解包 → `tc2sc.py` 转换 → 重打包，命令三条。
-- 仓库与 Release 都不能承载 2–3 GB 的 R18 包（GitHub 单文件 100 MB 上限，且禁止露骨内容）。
+- 官方 R18 内容包（`pmht_patch_R18.noa` 2.3 GB / `pmht2_patch_R18.noa` 3.3 GB）**不在本补丁内**，
+  也不会由 GitHub 承载：单文件上限 100 MB，且 GitHub 禁止露骨成人内容。
+- **实测**：该包内的 254 个脚本、39,483 条文本**本身就是简体中文**（例如 `text_ZHTW="开始游戏"`），
+  装好官方 R18 包即直接是简体，不需要任何额外转换。
+- 若你的发行批次是繁体，转换方法见总仓库
+  [`r18-convert`](https://github.com/hogtinbao/game-locale-audio-toolkit/tree/master/r18-convert)（三条命令，本地完成）。
 
 ## 校验
 
